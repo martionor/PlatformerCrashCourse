@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\ParrallaxEffect.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\AnimationStrings.cs" />
+    <Compile Include="Assets\Scripts\TouchingDirections.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\kyrises-rpg-icon-pack\readme.txt" />

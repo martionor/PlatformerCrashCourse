@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2866142739086364796}
   - component: {fileID: 1521023895222515536}
   - component: {fileID: 80320842417156400}
+  - component: {fileID: 9191383601644652590}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -101,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24852f602196fed48895a41fe641e838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpImpulse: 10
   walkSpeed: 5
   runSpeed: 10
   _isMoving: 0
@@ -211,6 +213,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d5a6c3b3-d576-4dfe-8969-775e6e1ff562
     m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6714282716729252340}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b9fc7d7f-0466-4336-b87e-86818c8ed6ed
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -299,3 +317,31 @@ CapsuleCollider2D:
   m_Offset: {x: -0.012961745, y: -0.26355398}
   m_Size: {x: 0.7314136, y: 1.6646535}
   m_Direction: 0
+--- !u!114 &9191383601644652590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296246143730679970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96bbd63ca320dc44d89ea2060dc54cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  groundDistance: 0.05
+  _isGrounded: 1
