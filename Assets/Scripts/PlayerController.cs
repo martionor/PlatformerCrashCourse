@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animator;
+    TouchingDirections touchingDirections;
 
     public float jumpImpulse = 10f;
     public float walkSpeed = 5f;
@@ -17,43 +18,51 @@ public class PlayerController : MonoBehaviour
     public float airWalkSpeed = 3f;
 
     Vector2 moveInput;
-    TouchingDirections touchingDirections;
+
 
     public float CurrentMoveSpeed
     {
         get
         {
-            if(IsMoving && !touchingDirections.IsOnWall)
+            if (CanMove)
             {
-                if (touchingDirections.IsGrounded)
+                if (IsMoving && !touchingDirections.IsOnWall)
                 {
-                    if (IsRunning)
+                    if (touchingDirections.IsGrounded)
                     {
-                        return runSpeed;
+                        if (IsRunning)
+                        {
+                            return runSpeed;
+                        }
+                        else
+                        {
+                            return walkSpeed;
+                        }
                     }
                     else
                     {
-                        return walkSpeed;
+                        //Air walk move speed
+                        return airWalkSpeed;
                     }
+
                 }
                 else
                 {
-                    //Air walk move speed
-                    return airWalkSpeed;
+                    //Idle speed is 0
+                    return 0;
                 }
-               
             }
             else
             {
-                //Idle speed is 0
+                //Movement locked (example because of attacking)
                 return 0;
             }
         }
     }
 
+
     [SerializeField]
     private bool _isMoving = false;
-
     public bool IsMoving
     {
         get
@@ -68,9 +77,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     [SerializeField]
     private bool _isRunning = false;
-
     public bool IsRunning
     {
         get
@@ -84,8 +93,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public bool _isFacingRight = true;
 
+    public bool _isFacingRight = true;
     public bool IsFacingRight {
         //Flip only if value is new
         get {
@@ -101,6 +110,11 @@ public class PlayerController : MonoBehaviour
         }}
 
 
+    public bool CanMove { get
+        {
+            return animator.GetBool(AnimationStrings.canMove);
+        } }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -108,22 +122,25 @@ public class PlayerController : MonoBehaviour
         touchingDirections=GetComponent<TouchingDirections>();
     }
 
+
     private void FixedUpdate()
     {
         rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
     }
 
-    public void onMove(InputAction.CallbackContext context)
+
+    public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
 
         IsMoving = moveInput != Vector2.zero;
 
-        SetFacingDirection(onMove);
+        SetFacingDirection(OnMove);
     }
 
-    private void SetFacingDirection(Action<InputAction.CallbackContext> onMove)
+
+    private void SetFacingDirection(Action<InputAction.CallbackContext> OnMove)
     {
         if (moveInput.x > 0 && !IsFacingRight)
         {
@@ -136,7 +153,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void onRun(InputAction.CallbackContext context)
+
+    public void OnRun(InputAction.CallbackContext context)
     {
         if (context.started)
         {
@@ -147,13 +165,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void onJump(InputAction.CallbackContext context)
+
+    public void OnJump(InputAction.CallbackContext context)
     {
         //TODO check if alive as well
-        if (context.started && touchingDirections.IsGrounded)
+        if (context.started && touchingDirections.IsGrounded && CanMove)
         {
-            animator.SetTrigger(AnimationStrings.jump);
+            animator.SetTrigger(AnimationStrings.jumpTrigger);
             rb.velocity = new Vector2(rb.velocity.x, jumpImpulse);
+        }
+    }
+
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            animator.SetTrigger(AnimationStrings.attackTrigger);
         }
     }
 }

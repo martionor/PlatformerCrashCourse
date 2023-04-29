@@ -105,6 +105,7 @@ MonoBehaviour:
   jumpImpulse: 10
   walkSpeed: 5
   runSpeed: 10
+  airWalkSpeed: 3
   _isMoving: 0
   _isRunning: 0
   _isFacingRight: 1
@@ -137,7 +138,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6714282716729252340}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: onMove
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -154,7 +155,19 @@ MonoBehaviour:
     m_ActionId: 60977adb-0433-4860-9757-28aa3137d1d2
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6714282716729252340}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 49bbfd5b-2033-495d-894e-620616af8ce9
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -201,7 +214,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6714282716729252340}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: onRun
+        m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -217,7 +230,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6714282716729252340}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: onJump
+        m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -344,4 +357,8 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   groundDistance: 0.05
+  wallDistance: 0.2
+  ceilingDistance: 0.05
+  _isOnCeiling: 1
   _isGrounded: 1
+  _isOnWall: 1
