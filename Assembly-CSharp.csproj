@@ -61,9 +61,10 @@
     <Compile Include="Assets\Scripts\ParrallaxEffect.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetBoolBehaviour.cs" />
-    <Compile Include="Assets\Knight.cs" />
+    <Compile Include="Assets\Scripts\Knight.cs" />
     <Compile Include="Assets\Scripts\AnimationStrings.cs" />
     <Compile Include="Assets\Scripts\TouchingDirections.cs" />
+    <Compile Include="Assets\Scripts\DetectionZone.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\kyrises-rpg-icon-pack\readme.txt" />
