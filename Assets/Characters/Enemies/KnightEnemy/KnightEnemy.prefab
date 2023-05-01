@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 34336281652405734}
   - component: {fileID: 2104825801797323470}
   - component: {fileID: 1562584934007262940}
+  - component: {fileID: 2981829059349720430}
   m_Layer: 8
   m_Name: KnightEnemy
   m_TagString: Untagged
@@ -256,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
+  walkStopRate: 0.05
   attackZone: {fileID: 5200427514888190855}
   _hasTarget: 0
 --- !u!114 &2104825801797323470
@@ -311,3 +313,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2981829059349720430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2515880550931776679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b62f192f4409a4495e584242b66c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
