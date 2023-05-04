@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Damagable : MonoBehaviour
+public class Damageable : MonoBehaviour
 {
+    public UnityEvent<int, Vector2> damageableHit;
+
     Animator animator;
 
     [SerializeField]
@@ -45,6 +48,7 @@ public class Damagable : MonoBehaviour
     [SerializeField]
     private bool _isAlive = true;
     private bool isInvincible = false;
+
     private float timeSinceHit = 0;
     public float invincibilityTime = 0.25f;
 
@@ -56,6 +60,21 @@ public class Damagable : MonoBehaviour
             _isAlive = value;
             animator.SetBool(AnimationStrings.isAlive, value);
             Debug.Log("Is alive " + value);
+        }
+    }
+
+
+    //The velocity should not be changed while this is true but needs to be respected by other physics components
+    // like Player Controller
+    public bool lockVelocity
+    {
+        get
+        {
+            return animator.GetBool(AnimationStrings.lockVelocity);
+        }
+        set
+        {
+            animator.SetBool(AnimationStrings.lockVelocity, value);
         }
     }
 
@@ -77,15 +96,27 @@ public class Damagable : MonoBehaviour
 
             timeSinceHit += Time.deltaTime;
         }
-        Hit(10);
+
+        //Used for testing purposes if animation works
+        //Hit(10);
     }
 
-    public void Hit(int damage)
+    //Return whether damageable took hit or not
+    public bool Hit(int damage, Vector2 knockback)
     {
         if (IsAlive && !isInvincible)
         {
             Health -= damage;
             isInvincible = true;
+            lockVelocity = true;
+            //Notify other subscribed components that the damageable was hit to handle the knockback and such
+            animator.SetTrigger(AnimationStrings.hitTrigger);
+            damageableHit?.Invoke(damage, knockback);
+            //Debug.Log("hit");
+            return true;
         }
+        //Not possible to hit
+        return false;
     }
+
 }

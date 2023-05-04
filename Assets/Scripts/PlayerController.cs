@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animator;
     TouchingDirections touchingDirections;
+    Damageable damageable;
 
     public float jumpImpulse = 10f;
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
     public float airWalkSpeed = 3f;
-
-    Vector2 moveInput;
 
 
     public float CurrentMoveSpeed
@@ -120,12 +119,18 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections=GetComponent<TouchingDirections>();
+        damageable = GetComponent<Damageable>();
     }
 
 
+    Vector2 moveInput;
+
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        if (!damageable.lockVelocity)
+        {
+            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
+        }
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
     }
 
@@ -134,11 +139,25 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-        IsMoving = moveInput != Vector2.zero;
+        if (IsAlive) 
+        {
+            IsMoving = moveInput != Vector2.zero;
 
-        SetFacingDirection(OnMove);
+            SetFacingDirection(OnMove);
+        }
+        else
+        {
+            IsMoving = false;
+        }
     }
 
+    public bool IsAlive
+    {
+        get 
+        {
+            return animator.GetBool(AnimationStrings.isAlive);
+        }
+    }
 
     private void SetFacingDirection(Action<InputAction.CallbackContext> OnMove)
     {
@@ -183,5 +202,10 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger(AnimationStrings.attackTrigger);
         }
+    }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 }
