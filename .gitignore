@@ -1,9 +1,9 @@
 .vs/
 
-/.vs
 
-/Library
 
-/temp
+Library/
 
-/Logs
+temp/
+
+Logs/
