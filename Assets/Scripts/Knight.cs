@@ -13,6 +13,7 @@ public class Knight : MonoBehaviour
     TouchingDirections touchingDirections;
     Damageable damageable;
     public DetectionZone attackZone;
+    public DetectionZone cliffDetectionZone;
 
     Animator animator;
 
@@ -61,6 +62,18 @@ public class Knight : MonoBehaviour
         }
     }
 
+    public float AttackCooldown
+    {
+        get
+        {
+            return (animator.GetFloat(AnimationStrings.attackCooldown));
+        }
+        private set
+        {
+            //Choose value between value and 0, 0 is minimal value
+            animator.SetFloat(AnimationStrings.attackCooldown, MathF.Max(value,0));
+        }
+    }
     public void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -73,10 +86,16 @@ public class Knight : MonoBehaviour
     void Update()
     {
         HasTarget = attackZone.DetectedColliders.Count > 0;
+        
+        if(AttackCooldown > 0)
+        {
+            AttackCooldown -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
     {
+        // || cliffDetectionZone.DetectedColliders.Count == 0 can add to if, if you want to do the check here
         if (touchingDirections.IsOnWall && touchingDirections.IsGrounded)
         {
             FlipDirection();
@@ -114,5 +133,13 @@ public class Knight : MonoBehaviour
     public void OnHit(int damage, Vector2 knockback)
     {
         rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    }
+
+    public void OnCliffDetected()
+    {
+        if(touchingDirections.IsGrounded)
+        {
+            FlipDirection();
+        }
     }
 }
