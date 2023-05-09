@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\StateMachine\SetFloatBehaviour.cs" />
     <Compile Include="Assets\Scripts\HealthPickup.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayOneShotBehaviour.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />
     <Compile Include="Assets\Scripts\Damageable.cs" />
     <Compile Include="Assets\Scripts\ParrallaxEffect.cs" />
