@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\HealthText.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetBoolBehaviour.cs" />
+    <Compile Include="Assets\Scripts\FlyingEye.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Knight.cs" />
     <Compile Include="Assets\Scripts\StateMachine\FadeRemoveBehaviour.cs" />
