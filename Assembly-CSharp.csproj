@@ -58,8 +58,10 @@
     <Analyzer Include="D:\Programs\Unity Hub\2022.2.16f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetFloatBehaviour.cs" />
     <Compile Include="Assets\Scripts\HealthPickup.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PlayOneShotBehaviour.cs" />
     <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />
     <Compile Include="Assets\Scripts\Damageable.cs" />
     <Compile Include="Assets\Scripts\ParrallaxEffect.cs" />
